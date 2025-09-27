@@ -6,3 +6,27 @@
 //
 
 import Foundation
+import SwiftData
+
+@Model
+class Reminder {
+    var id: UUID = UUID()
+    var title: String
+    var details: String?
+    var estimatedDuration: Int
+    var mode: String
+    var createdAt: Date
+    var updatedAt: Date
+    var nextReviewDate: Date?
+    var sessions: [Session] = []
+    
+    init(title: String, details: String? = nil, estimatedDuration: Int, mode: String, createdAt: Date, nextReviewDate: Date? = nil) {
+        self.title = title
+        self.details = details
+        self.estimatedDuration = estimatedDuration
+        self.mode = mode
+        self.createdAt = createdAt
+        self.updatedAt = createdAt
+        self.nextReviewDate = nextReviewDate
+    }
+}

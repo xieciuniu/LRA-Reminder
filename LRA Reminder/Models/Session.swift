@@ -6,3 +6,18 @@
 //
 
 import Foundation
+import SwiftData
+
+@Model
+class Session {
+    var id: UUID = UUID()
+    var startDate: Date = Date()
+    var endDate: Date?
+    var duration: Int?
+    var reminder: Reminder
+    
+    init(startDate: Date, reminder: Reminder) {
+        self.startDate = startDate
+        self.reminder = reminder
+    }
+}
