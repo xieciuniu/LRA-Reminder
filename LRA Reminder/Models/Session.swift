@@ -15,9 +15,11 @@ class Session {
     var endDate: Date?
     var duration: Int?
     var reminder: Reminder
+    var isSessionMissed: Bool
     
-    init(startDate: Date, reminder: Reminder) {
+    init(startDate: Date, reminder: Reminder, isSessionMissed: Bool?) {
         self.startDate = startDate
         self.reminder = reminder
+        self.isSessionMissed = isSessionMissed ?? false
     }
 }
