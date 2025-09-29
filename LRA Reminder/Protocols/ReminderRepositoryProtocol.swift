@@ -8,9 +8,9 @@
 import Foundation
 
 protocol ReminderRepositoryProtocol {
-    func addReminder(title: String, details: String, estimationDuration: Int, mode: mode, nextReviewDate: Date)
+    func addReminder(title: String, details: String, estimationDuration: Int, mode: Mode, nextReviewDate: Date)
     
     func deleteReminder(_ reminder: Reminder)
     
-    
+    func editReminder(_ redminder: Reminder, newTitle: String?, newDetails: String?, newEstimationDuration: Int?, newMode: Mode?, newNextReviewDate: Date?)
 }

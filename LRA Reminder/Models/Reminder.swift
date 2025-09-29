@@ -14,17 +14,19 @@ class Reminder {
     var title: String
     var details: String?
     var estimatedDuration: Int
-    var reminderMode: mode
+    var reminderMode: Mode
     var createdAt: Date
     var updatedAt: Date
     var nextReviewDate: Date?
     var sessions: [Session] = []
+    var missedCount: Int = 0
+    var completedCount: Int = 0
     
     init(
         title: String,
         details: String? = nil,
         estimatedDuration: Int,
-        mode: mode,
+        mode: Mode,
         createdAt: Date,
         nextReviewDate: Date? = nil
     ) {
@@ -38,7 +40,7 @@ class Reminder {
     }
 }
 
-enum mode: String, Codable {
+enum Mode: String, Codable {
     case manual
     case smart
 }
