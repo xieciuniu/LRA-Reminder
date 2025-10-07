@@ -24,7 +24,7 @@ class ReminderFactory {
             createdAt: now,
             nextReviewDate: nextReviewDate
         )
-        
+
         return reminder
     }
 }

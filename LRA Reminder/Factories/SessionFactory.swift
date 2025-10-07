@@ -11,7 +11,7 @@ class SessionFactory {
     static func createSession(for reminder: Reminder) -> Session {
         let now = Date()
         let session = Session(
-            startDate: Date(),
+            startDate: now,
             reminder: reminder,
             status: .inProgress
         )

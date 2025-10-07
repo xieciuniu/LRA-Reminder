@@ -10,11 +10,25 @@ import SwiftData
 
 class ReminderRepository: ReminderRepositoryProtocol {
     let context: ModelContext
-    
+
     init(context: ModelContext) {
         self.context = context
     }
-    
+
+    func fetchReminders() -> [Reminder] {
+        let sort: [SortDescriptor<Reminder>] = [
+            SortDescriptor(\.createdAt, order: .forward)
+        ]
+        let descriptor = FetchDescriptor<Reminder>(sortBy: sort)
+        var reminders: [Reminder] = []
+        do {
+            reminders = try context.fetch(descriptor)
+        } catch {
+            print("Failed to fetch reminders: \(error.localizedDescription)")
+        }
+        return reminders
+    }
+
     func addReminder(
         title: String,
         details: String,
@@ -29,28 +43,53 @@ class ReminderRepository: ReminderRepositoryProtocol {
             mode: mode,
             nextReviewDate: nextReviewDate
         )
-        
-        do { 
+
+        do {
             context.insert(reminder)
             try context.save()
         } catch {
-            // TODO: Handle the error appropriately, e.g., log it or notify the user
+            print("Failed to save: \(error.localizedDescription)")
         }
     }
 
     func deleteReminder(_ reminder: Reminder) {
-        <#code#>
+        do {
+            context.delete(reminder)
+            try context.save()
+        } catch {
+            print("Failed to delete: \(error.localizedDescription)")
+        }
     }
 
     func editReminder(
-        _ redminder: Reminder,
+        _ reminder: Reminder,
         newTitle: String?,
         newDetails: String?,
         newEstimationDuration: Int?,
         newMode: Mode?,
         newNextReviewDate: Date?
     ) {
-        <#code#>
-    }
+        if let newTitle {
+            reminder.title = newTitle
+        }
+        if let newDetails {
+            reminder.details = newDetails
+        }
+        if let newEstimationDuration {
+            reminder.estimatedDuration = newEstimationDuration
+        }
+        if let newMode {
+            reminder.reminderMode = newMode
+        }
+        if let newNextReviewDate {
+            reminder.nextReviewDate = newNextReviewDate
+        }
+        reminder.updatedAt = .now
 
+        do {
+            try context.save()
+        } catch {
+            print("Failed to edit reminder (\(reminder.title)): \(error.localizedDescription)")
+        }
+    }
 }
