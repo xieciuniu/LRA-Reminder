@@ -14,19 +14,33 @@ class Reminder {
     var title: String
     var details: String?
     var estimatedDuration: Int
-    var mode: String
+    var reminderMode: Mode
     var createdAt: Date
     var updatedAt: Date
     var nextReviewDate: Date?
     var sessions: [Session] = []
+    var missedCount: Int = 0
+    var completedCount: Int = 0
     
-    init(title: String, details: String? = nil, estimatedDuration: Int, mode: String, createdAt: Date, nextReviewDate: Date? = nil) {
+    init(
+        title: String,
+        details: String? = nil,
+        estimatedDuration: Int,
+        mode: Mode,
+        createdAt: Date,
+        nextReviewDate: Date? = nil
+    ) {
         self.title = title
         self.details = details
         self.estimatedDuration = estimatedDuration
-        self.mode = mode
+        self.reminderMode = mode
         self.createdAt = createdAt
         self.updatedAt = createdAt
         self.nextReviewDate = nextReviewDate
     }
+}
+
+enum Mode: String, Codable {
+    case manual
+    case smart
 }
