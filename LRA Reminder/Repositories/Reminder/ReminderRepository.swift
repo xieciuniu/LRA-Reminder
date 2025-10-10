@@ -31,10 +31,10 @@ class ReminderRepository: ReminderRepositoryProtocol {
 
     func addReminder(
         title: String,
-        details: String,
+        details: String?,
         estimationDuration: Int,
         mode: Mode,
-        nextReviewDate: Date
+        nextReviewDate: Date?
     ) {
         let reminder = ReminderFactory.createReminder(
             title: title,
