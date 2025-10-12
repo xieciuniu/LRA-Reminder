@@ -5,31 +5,57 @@
 //  Created by Hubert Wojtowicz on 10/10/2025.
 //
 
+@testable import LRA_Reminder
+import SwiftData
 import XCTest
 
+@MainActor
 final class ReminderRepositoryTests: XCTestCase {
-
+    var container: ModelContainer?
+    var context: ModelContext?
+    var repository: ReminderRepository?
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        container = try TestUtils.makeInMemoryContainer()
+        context = container!.mainContext
+        repository = ReminderRepository(context: context!)
     }
-
+    
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        container = nil
+        context = nil
+        repository = nil
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testAddReminder() throws {
+        // Given
+        let reminder = Reminder(
+            title: "Test Reminder",
+            estimatedDuration: 5,
+            mode: .manual,
+            createdAt: Date()
+        )
+        
+        // When
+        repository!
+            .addReminder(
+                title: reminder.title,
+                details: reminder.details,
+                estimationDuration: reminder.estimatedDuration,
+                mode: .manual,
+                nextReviewDate: reminder.nextReviewDate
+        )
+        
+        // Then
+        let all = repository!.fetchReminders()
+        XCTAssertEqual(all.count, 1)
+        XCTAssertEqual(all.first?.title, "Test Reminder")
     }
-
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }
-
 }

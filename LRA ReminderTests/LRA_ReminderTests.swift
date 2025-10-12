@@ -5,13 +5,13 @@
 //  Created by Hubert Wojtowicz on 26/09/2025.
 //
 
-import XCTest
-import SwiftData
 @testable import LRA_Reminder
+import SwiftData
+import XCTest
 
 @MainActor
+// swiftlint:disable:next type_name
 final class LRA_ReminderTests: XCTestCase {
-    
     var container: ModelContainer?
     var context: ModelContext?
     var repository: ReminderRepository?
@@ -31,21 +31,20 @@ final class LRA_ReminderTests: XCTestCase {
     func testAddReminder() throws {
         // Given
         let reminder = Reminder(title: "Test Reminder", estimatedDuration: 5, mode: .manual, createdAt: Date())
-        
+
         // When
         repository!.addReminder(title: reminder.title, details: reminder.details, estimationDuration: reminder.estimatedDuration, mode: .manual, nextReviewDate: reminder.nextReviewDate)
-        
+
         // Then
         let all = repository!.fetchReminders()
-        XCTAssertEqual(all.count,1)
+        XCTAssertEqual(all.count, 1)
         XCTAssertEqual(all.first?.title, "Test Reminder")
     }
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }
-
 }

@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 @main
+// swiftlint:disable:next type_name
 struct LRA_ReminderApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
