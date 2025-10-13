@@ -7,6 +7,7 @@
 
 import XCTest
 
+// swiftlint:disable:next type_name
 final class LRA_ReminderUITests: XCTestCase {
 
     override func setUpWithError() throws {

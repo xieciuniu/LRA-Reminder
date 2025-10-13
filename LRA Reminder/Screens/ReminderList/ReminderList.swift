@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ReminderList: View {
     @Environment(\.modelContext) var modelContext
-    @State private var viewModel: ReminderListViewModel = ReminderListViewModel()
+    @State private var viewModel: ReminderListViewModel = .init()
 
     var body: some View {
         NavigationStack {
@@ -18,9 +18,14 @@ struct ReminderList: View {
                 if !viewModel.loading {
                     List {
                         ForEach(viewModel.reminders) { reminder in
-                            NavigationLink(destination: {}) {
-                                ReminderListItem(reminder: reminder)
-                            }
+                            NavigationLink(
+                                destination: {
+                                    Text("Hello world, place holder")
+                                },
+                                label: {
+                                    ReminderListItem(reminder: reminder)
+                                }
+                            )
                         }
                         .onDelete(perform: { indexSet in
                             viewModel.reminderDelete(at: indexSet)

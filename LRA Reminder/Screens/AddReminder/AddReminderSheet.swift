@@ -17,7 +17,8 @@ struct AddReminderSheet: View {
                 Section("Reminder Info") {
                     TextField("Title", text: $viewModel.title)
                     TextField("Details", text: $viewModel.details)
-                    Stepper("Duration: \(viewModel.estimatedDuration) min", value: $viewModel.estimatedDuration, in: 1...300)
+                    Stepper("Duration: \(viewModel.estimatedDuration) min",
+                            value: $viewModel.estimatedDuration, in: 1 ... 300)
                 }
             }
             .navigationTitle("New Reminder")
@@ -36,6 +37,6 @@ struct AddReminderSheet: View {
     }
 }
 
-//#Preview {
+// #Preview {
 //    AddReminderSheet()
-//}
+// }
